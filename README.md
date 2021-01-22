@@ -33,3 +33,6 @@ The smart system can only be used locally. Due to the dependencies of neural net
   - 127.0.0.1:8000
 
 
+
+
+
