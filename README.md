@@ -6,8 +6,6 @@ The smart system can only be used locally. Due to the dependencies of neural net
 #### Requerimiento principal | Main requirement
 - Anaconda (Python 3.7) : Es necesario tener instalado Anaconda con Python 3.7, para hacer uso de las librerias que necesita la red neuronal convolucional. It is necessary to have Anaconda installed with Python 3.7, to make use of the libraries that the convolutional neural network needs.
 
-![](https://datarebellion.com/wp-content/uploads/2018/04/anaconda-logo-300x300.png)
-
 #### Librerias | Librarys
 - Django==3.1.1
 - Django-cleanup==5.1.0
@@ -18,8 +16,6 @@ The smart system can only be used locally. Due to the dependencies of neural net
 
 #### Base de datos  | Database
 - MySQL: El proyecto utiliza la base de datos MySQL, por lo que deberas crear la base de datos en el servidor local con el nombre **bdsistemainteligente**. The project uses the MySQL database, so you must create the database on the local server with the name **bdsistemainteligente**.
-
-![](https://icons.iconarchive.com/icons/papirus-team/papirus-apps/256/mysql-workbench-icon.png)
 
 #### Pasos para implantación del sistema inteligente | Steps to implant the smart system
 
