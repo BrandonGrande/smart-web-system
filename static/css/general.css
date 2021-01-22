@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+@import url(https://fonts.googleapis.com/css?family=Acme|Poppins&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&display=swap');
+form{
+	
+	   font-family: 'Poppins', sans-serif;
+}
+
+
+* {
+     font-family: 'Questrial', sans-serif;
+}
+
+
+h5{
+	font-family: 'DM Sans', sans-serif;
+}
+

@@ -1,0 +1,78 @@
+{% extends "appPrincipal/base.html" %}
+{% load static %}
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+
+<script type="text/javascript">
+       toastr.{{message.tags}}('{{message}}','',{
+ "positionClass": "toast-bottom-left"
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/registroImagen.css' %}">
+<div class="container">
+<div class="row justify-content-center mt-5">
+<h5 class="tituloImg">Diagnóstica tu cultivo</h5>    
+</div>
+<div class="row justify-content-center mt-3">
+<div class="col-md-5 ">   
+<div class="row justify-content-center"> 
+<form action="{% url 'cargar_diagnostico' %}" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate autocomplete="off"> 
+  {% csrf_token %}
+<div class="row justify-content-center">
+
+
+  <div class="drop-zone" style="width: 300px;
+  height: 300px;">
+        <span class="text-secondary drop-zone__prompt">Agrega la fotografía del cultivo</span>
+    <input type="file" name="imagenDiagnostico" class="drop-zone__input" required>
+  </div>
+          
+</div>  
+<div class="row justify-content-center mt-4">
+<button type="submit" class="btn btn-dark" >Diagnosticar</button>
+</div>
+</form>
+</div>
+<div class="row justify-content-center mt-4">
+<div class="col-9">
+	
+
+
+<br><br>	
+</div>	
+
+</div>         
+              
+
+            </div>
+
+	</div>
+	
+</div>
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+<script src="{% static 'js/appDiagnostico.js' %}"></script>
+<script src="{% static 'js/registroImagen.js' %}"></script>
+
+
+
+{% endblock %}

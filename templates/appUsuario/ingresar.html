@@ -1,0 +1,65 @@
+
+{% extends "appUsuario/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+{% if messages %}
+{% for message in messages %}
+
+<script type="text/javascript">
+       toastr.{{message.tags}}('{{message}}','',{
+ "positionClass": "toast-bottom-left"
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+
+<div class="container"> 
+	<br><br><br><br><br>
+<div class="row justify-content-center">
+<div class="col-md-8 col-lg-5"> 	
+<div class="card">
+<article class="card-body">
+	<h4 class="card-title text-center mb-5 mt-5">Iniciar sesión</h4>
+	<form method="POST" action="{% url 'ingresar' %}" class="needs-validation"  novalidate>
+			{% csrf_token %}
+	<div class="form-group">
+	<div class="input-group">
+	<input name="username" class="form-control" placeholder="Correo electronico" type="email" required>
+	<div class="valid-feedback">¡Completado!</div>
+    <div class="invalid-feedback">Por favor ingresa tu correo</div>
+	</div> 
+	</div> 
+	<div class="form-group">
+	<div class="input-group">
+	<input name="password" class="form-control" placeholder="Contraseña" type="password" required>
+	<div class="valid-feedback">¡Completado!</div>
+    <div class="invalid-feedback">Por favor ingresa tu contraseña</div>
+	</div> <!-- input-group.// -->
+	</div> <!-- form-group// -->
+	<div class="form-group">
+	<div class="row justify-content-center">
+
+	<button type="submit" class="btn btn-secondary" >Iniciar sesión</button>
+	</div> <!-- form-group// -->
+	</div> 
+	</form>
+</article>
+</div>
+	<div class="card p-3">
+	<div class="row justify-content-center">
+			<p class="mr-1">¿No tienes cuenta?</p>
+			<a href="{% url 'registrar_usuario' %}" type="submit" class="btn btn-success">Registrate</a>
+	</div>
+	</div> 
+	</div>
+	</div>	
+</div>
+</body>
+
+{% endblock %}

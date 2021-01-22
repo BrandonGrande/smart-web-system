@@ -1,0 +1,204 @@
+{% extends "appPrincipal/base.html" %} {% load static %} {% block content %}
+{% if messages %}
+{% for message in messages %}
+
+<script type="text/javascript">
+       toastr.{{message.tags}}('{{message}}','',{
+ "positionClass": "toast-bottom-left"
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+
+
+
+<div class="container-fluid">
+<div class="row justify-content-center mt-3">
+	<div class="col col-lg-5 mt-3">
+		<!--- \\\\\\\Post-->
+		<form class="needs-validation" novalidate action="{% url 'crear_pregunta' 2 %}" method="POST" enctype="multipart/form-data" autocomplete="off">{% csrf_token %}
+			<div class="card gedf-card">
+				<div class="card-header">
+					<ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+						<li class="nav-item"> <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Nueva pregunta</a>
+						</li>
+						<li class="nav-item"> <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Imagen</a>
+						</li>
+					</ul>
+				</div>
+				<div class="card-body">
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+							<div class="form-group">
+								<label class="sr-only" for="message"></label>
+								<textarea required name="descripcionPregunta" class="form-control" id="descripcionPregunta" rows="3" placeholder="¿Que sucede con tu cultivo?"></textarea>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+							<div class="form-group">
+								      <div class="row justify-content-center mb-3">
+  <div class="drop-zone">
+        <span class="text-secondary drop-zone__prompt">Agrega la fotografía del cultivo</span>
+    <input type="file" name="imagenPregunta" class="drop-zone__input">
+  </div>
+            </div> 
+            
+							</div>
+							
+						</div>
+					</div>
+					<div class="btn-toolbar justify-content-between">
+						<div class="btn-group">
+							<button type="submit" class="btn btn-primary">Publicar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<!--- \\\\\\\Post-->{% for pregunta in preguntas %}
+		<div class="card gedf-card mt-3">
+			<div class="card-header">
+				<div class="d-flex justify-content-between align-items-center">
+					
+<div class="col-3 col-md-2">	
+<div class="circle" style="  width: 100%;">
+<img   src="{{pregunta.user.get_image}}" onload='fixAspect(this);'>
+</div>
+</div>		
+				
+						<div class="col-7 col-md-9">
+							<div class="h5 m-0">{{pregunta.user.first_name|capfirst}} {{pregunta.user.last_name|capfirst}}</div>
+							<div class="h7 text-muted">{{pregunta.user.username|capfirst}}</div>
+						</div>
+			
+					<div>
+						{% if pregunta.user == user %}
+						<div class="dropdown ">
+							<button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-ellipsis-h"></i>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+								<div class="h6 dropdown-header">Configuracion</div> <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarPregunta{{pregunta.id_pregunta}}">Editar</a>
+								<a id="botonEliminar" class="dropdown-item" data-toggle="modal" data-target="#eliminarPregunta{{pregunta.id_pregunta}}">Eliminar</a>
+							</div>
+						</div>
+						<div class="modal fade" id="eliminarPregunta{{pregunta.id_pregunta}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">¿Estas seguro de eliminar la pregunta?</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body"></div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button> 
+										<form method="POST" action="{% url 'eliminar_pregunta' pregunta.id_pregunta 2 %}">{% csrf_token %}
+											<button type="submit" class="btn btn-danger">Confirmar</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal fade" id="editarPregunta{{pregunta.id_pregunta}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel"></h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<form class="needs-validation" novalidate method="POST" action="{% url 'modificar_pregunta' pregunta.id_pregunta 2 %}" enctype="multipart/form-data"autocomplete="off">{% csrf_token %}
+										<div class="modal-body" id="infoCuestionario">
+											   <div class="row justify-content-center">
+                                             <div class="drop-zone">
+        <span class="text-secondary drop-zone__prompt">Agrega la fotografía del cultivo</span>
+    <input type="file" name="imagenPregunta" class="drop-zone__input">
+  </div>
+                                            </div>
+											<div class="form-group mt-3">
+												<div class="row justify-content-center"><label>Descripción</label></div>
+												
+												
+												<textarea class="form-control" name="descripcionPregunta" id="descripcion" required="">{{pregunta.descripcion}}</textarea>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+											<button type="submit" class="btn btn-primary">Guardar cambios</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>{% endif %}</div>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="text-muted h7"> <i class="fa fa-clock-o"></i>{{pregunta.fecha}}</div>
+				<p class="card-text">{{pregunta.descripcion}}</p>
+			</div>{% if pregunta.imagen %}
+			<div class="row justify-content-center mb-3">
+				<div class="col-10">
+					<img class="rounded img-fluid" src="{{pregunta.imagen.url}}">
+				</div>
+			</div>{% endif %}
+
+			<div class="card-footer"> 
+				
+			
+			
+			<a href="{%url 'cargar_pregunta' pregunta.id_pregunta %}" class="card-link"><i class="fa fa-comment"></i> Comentarios</a>
+	
+
+			</div>
+		</div>{% endfor %}</div>
+</div>
+
+
+
+{% if mostrar %}
+<div class="row justify-content-center mt-3 mb-3">
+    <div class="col-md-5">
+
+<nav aria-label="...">
+  <ul class="pagination">
+    
+
+    <li class="page-item {% if not prev_page_url %} disabled {% endif %}">
+      <a class="page-link" href="{{prev_page_url}}" tabindex="-1">Anterior</a>
+    </li>
+
+
+    {% for n in preguntas.paginator.page_range %}
+
+    {% if preguntas.number == n %}
+ <li class="page-item active">
+      <a class="page-link" href="?pagina={{forloop.counter}}">{{forloop.counter}}</a>
+    </li>
+    {% elif n > preguntas.number|add:-3 and n < preguntas.number|add:3 %}
+
+    <li class="page-item ">
+      <a class="page-link" href="?pagina={{forloop.counter}}">{{forloop.counter}}</a>
+    </li>
+    {% endif %}
+
+     {% endfor %}
+  <li class="page-item {% if not next_page_url %} disabled {% endif %}">
+      <a class="page-link" href="{{next_page_url}}">Siguiente</a>
+    </li>
+
+ 
+  
+  </ul>
+</nav>
+
+
+
+</div>
+</div>
+{% endif %}
+
+</div>
+
+<script src="{% static 'js/registroImagen.js' %}"></script>
+{% endblock %}

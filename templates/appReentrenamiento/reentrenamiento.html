@@ -1,0 +1,191 @@
+{% extends "appPrincipal/base.html" %}
+{% load static %}
+{% block content %}
+
+
+{% if messages %}
+{% for message in messages %}
+
+<script type="text/javascript">
+       toastr.{{message.tags}}('{{message}}','',{
+ "positionClass": "toast-bottom-left"
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/appReentrenamiento.css' %}">
+
+
+<div id="contenedor_carga" style="visibility: hidden;">
+  <label id="mensaje1" class="text-light"><p>Reentrenando red neuronal</p><p>Espere un momento...</p></label>
+  <div id="carga"></div>
+</div>
+
+<form  class="needs-validation" id="reentrenar" novalidate autocomplete="off">
+ 
+
+<div class="container mt-4">
+	<div class="row">
+	<div class="col-8 col-md-3">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<div class="col">
+				<div class="text-muted">Comenzar reentrenamiento de red neuronal</div> 		
+					</div>
+					<div class="col">
+
+
+
+<button type="submit" class="btn btn-primary"><i class="fas fa-power-off"></i></button>  
+<!--
+<label >
+  <input type="checkbox">
+  <span class="slider round">
+  </span>
+</label>
+-->
+
+
+
+					</div>			
+				</div>
+					
+			</div>
+		</div>
+		
+	</div>
+		
+	
+</div>
+	<div class="row mt-3">
+		<div class="col">
+		  <div class="card ">
+		  		<div class="card-body">
+
+		<table class="table table-bordered">
+  <thead>
+    <tr>
+		  	<tr>
+      <th scope="col">Enfermedad</th>
+      <th scope="col">No. de imágenes de entrenamiento</th>
+      <th scope="col">No. de imágenes de validación</th>
+    <tr>
+      
+
+              
+              
+  </thead>
+  <tbody>
+            {% for enfermedad in listaEnfermedades %}
+      <tr>
+      <td><a href="{% url 'consultar_enfermedad' enfermedad.id_enfermedad %}">{{enfermedad.nombreEnfermedad}}</a></td>
+      <td>{{enfermedad.cantidadEntrenamiento}}</td>
+      <td>{{enfermedad.cantidadValidacion}}</td>
+    </tr>
+
+              {% endfor %}
+          </tbody>
+</table>
+              
+          <!--
+          {% for enfermedad in enfermedades %}
+          <li class="list-group-item  bg-light">
+             <div class="text-dark mb-2">{{enfermedad.nombreEnfermedad}}</div>
+          </li>
+          {% endfor %}
+          </ul>
+		  	-->		
+		  		</div>
+          </div>
+        </div>
+
+<div class="col mt-3 mt-md-0">
+  <div class="card">
+  <div class="card-header">
+      <div class="text-dark">Datos de reentrenamiento</div>
+  </div>
+  <div class="row justify-content-center">
+    
+ 
+
+        <div class="col m-2">
+        	<div class="card">
+        		<div class="card-body">
+            <div class="row justify-content-center">
+              
+                <div class="form-row justify-content-center">
+                              <div class="col">
+                               <div class="text-muted">Primera convolución:</div>
+                                <label for="validationCustom01">Numero de filtros</label>
+                            <div class="def-number-input number-input safari_only">
+                            <a onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus btn btn-light p-3"></a>
+                            <input  id="numFiltro1" name="numFiltro1" class="quantity" min="0" name="quantity" value="32" type="number" required>
+                            <a onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus btn btn-light p-3"></a>
+                            </div>
+
+                              <div class="valid-feedback">¡Completado!</div>
+                              <div class="invalid-feedback">Por favor ingresa el numero de filtros</div>
+          
+                              </div>
+                              </div>
+                                  <div class="form-row justify-content-center mt-3">
+                              <div class="col">
+                              <div class="text-muted">Segunda convolución:</div>
+                                <label for="validationCustom01">Numero de filtros</label>
+                                
+
+                            <div class="def-number-input number-input safari_only">
+                            <a onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus btn btn-light p-3"></a>
+                            <input id="numFiltro2" name="numFiltro2"  class="quantity" min="0" name="quantity" value="64" type="number" required>
+                            <a onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus  btn btn-light p-3"></a>
+                            </div>
+                              <div class="valid-feedback">¡Completado!</div>
+                              <div class="invalid-feedback">Por favor ingresa el numero de filtros</div>
+          
+                              </div>
+                              </div>
+              
+             
+            </div>
+            </div>
+        	</div>
+        </div>
+        <div class="col m-2">
+            <div class="card">
+            <div class="card-body">
+              <div class="row justify-content-center">
+           
+                 <div class="form-row justify-content-center">
+                              <div class="col">
+                               
+                                <label for="validationCustom01">Numero de epocas</label>
+                            <div class="def-number-input number-input safari_only">
+                            <a onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus btn btn-light p-3"></a>
+                            <input  id="numEpocas" name="numEpocas" class="quantity" min="0" name="quantity" value="100" type="number" required>
+                            <a onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus btn btn-light p-3"></a>
+                            </div>
+
+                              <div class="valid-feedback">¡Completado!</div>
+                              <div class="invalid-feedback">Por favor ingresa el numero de epocas</div>
+          
+                              </div>
+                              </div>
+             
+
+              </div>
+            
+            </div>
+            </div>
+        </div>
+         </div>  
+  </div>
+</div>
+	</div>
+</div>
+
+</form>
+
+<script src="{% static 'js/appReentrenamiento.js' %}"></script>
+{% endblock %}

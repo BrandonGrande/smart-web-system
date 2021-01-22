@@ -1,0 +1,183 @@
+{% extends "appPrincipal/base.html" %}
+{% load static %}
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+
+<script type="text/javascript">
+       toastr.{{message.tags}}('{{message}}','',{
+ "positionClass": "toast-bottom-left"
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+
+<script type="text/javascript">
+  var errores={{errores}}
+  var calidad={{calidad}}
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/appReporteReentrenamiento.css' %}">
+
+<div class="container mt-5">
+   <div class="row justify-content-center">
+       <div class="col-lg-8">
+          <div class="row">
+            <div class="col">
+           <div class="card">
+                <ul class="list-group list-group-flush">   
+                <li class="list-group-item">
+               <h5 class="h6">Nombre:<p class="text-dark">{{reentrenamiento.nombre}}</p>  </h5>   
+               
+                      
+                 
+              
+                   
+
+               
+                </li>
+                </ul>       
+             </div>
+           </div>
+         </div>
+           <div class="row justify-content-center mt-1">
+             <div class="col">
+             <div class="card ">
+                <ul class="list-group list-group-flush">   
+                <li class="list-group-item">
+                <div class="text-muted">Primera convolución</div>
+                <h5 class="h6">Numero de filtros:<p class="text-dark">{{reentrenamiento.num_filtro1}}</p> </h5>
+                </li>
+                </ul>             
+           </div>  
+             </div>
+             <div class="col">
+               <div class="card ">
+              
+                <ul class="list-group list-group-flush">   
+                <li class="list-group-item">
+                <div class="text-muted">Segunda convolución</div>
+                <h5 class="h6">Numero de filtros:<p class="text-dark">{{reentrenamiento.num_filtro2}}</p></h5>
+                </li>
+                </ul>       
+             
+           </div>
+             </div>
+            
+
+           </div>
+           <div class="row justify-content-center mt-1">
+             <div class="col">
+             <div class="card ">
+                <ul class="list-group list-group-flush">   
+                <li class="list-group-item">
+                <h5 class="h6">Numero de epocas:<p class="text-dark">{{reentrenamiento.num_epocas}}</p> </h5>
+                </li>
+                </ul>             
+           </div>  
+             </div>
+             <div class="col">
+             <div class="card ">
+                <ul class="list-group list-group-flush">   
+                <li class="list-group-item">
+                <h5 class="h6">Función de activación:<p class="text-dark">{{reentrenamiento.funcion_activacion}}</p></h5>
+                </li>
+                </ul>             
+           </div>  
+             </div>
+             
+           </div>
+           <div class="row justify-content-center mt-1">
+             <div class="col">
+             <div class="card ">
+                <ul class="list-group list-group-flush">   
+                <li class="list-group-item">
+                <h5 class="h6">Promedio de error:<p class="text-dark">{{promedio_error}}</p> </h5>
+                </li>
+                </ul>             
+           </div>  
+             </div>
+             <div class="col">
+             <div class="card ">
+                <ul class="list-group list-group-flush">   
+                <li class="list-group-item">
+                <h5 class="h6">Promedio de calidad:<p class="text-dark">{{promedio_calidad}}</p></h5>
+                </li>
+                </ul>             
+           </div>  
+             </div>
+             
+           </div>
+             
+       </div>
+
+       <div class="col-lg-4">
+           <div class="card">
+                <ul class="list-group list-group-flush">   
+                <li class="list-group-item">
+                <h5 class="h6">Fecha: <p class="text-dark">{{reentrenamiento.fecha}}</p></h5>
+                </li>
+                <li class="list-group-item">
+                <h5 class="h6">Estado:
+                  {% if reentrenamiento.estado %}
+                  <p class="text-dark">Activo</p>
+
+                  {% else %}
+                  <p class="text-dark">Inactivo</p>
+
+                  {% endif %}
+
+                </h5>
+                </li>
+                <li class="list-group-item">
+                  <h5 class="h6">Responsable:<p class="text-dark">{{reentrenamiento.user|capfirst}}</p></h5>
+
+                </li>
+          
+                </ul>
+           </div>
+           <div class="card mt-3">
+              <ul class="list-group list-group-flush">   
+                <li class="list-group-item">
+                <h5 class="h6">Enfermedades entrenadas:</h5>
+                {% for clase in clases %}
+                <p class="text-dark">{{clase.nombre_enfermedad|capfirst}}</p>
+                {% endfor %}
+                </li>
+              </ul>
+           </div>
+       </div>
+   </div>
+
+ 
+<div class="row mb-4">  
+    <div class="col-md-8">
+      
+    <figure class="highcharts-figure">
+    <div id="container"></div>
+ 
+</figure>
+
+</div>
+
+
+    </div>
+  
+
+
+
+   
+
+   </div>
+ 
+   <script type="text/javascript" src="{% static 'highchart/highcharts.js' %}"></script>
+   <script type="text/javascript" src="{% static 'highchart/modules/series-label.js' %}"></script>
+      <script type="text/javascript" src="{% static 'highchart/modules/exporting.js' %}"></script>
+         <script type="text/javascript" src="{% static 'highchart/modules/export-data.js' %}"></script>
+            <script type="text/javascript" src="{% static 'highchart/modules/accessibility.js' %}"></script>
+
+              <script type="text/javascript" src="{% static 'js/appReporteReentrenamiento.js' %}"></script>
+{% endblock %}

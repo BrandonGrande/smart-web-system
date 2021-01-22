@@ -1,0 +1,176 @@
+{% extends "appPrincipal/base.html" %} {% load static %} {% block content %}
+
+
+{% if messages %}
+{% for message in messages %}
+
+<script type="text/javascript">
+       toastr.{{message.tags}}('{{message}}','',{
+ "positionClass": "toast-bottom-left"
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+
+<div class="container">
+
+
+<div class="card col-md-8 mt-3  my-0 mx-auto">
+<div class="card-body">
+	
+
+	<div class="row">
+	<div class="col ml-3 mt-md-2" style="font-size: 19px;">Reportes de reentrenamiento</div>
+	</div>
+</div>
+</div>
+
+
+
+
+{% for reentrenamiento in reentrenamientos %}
+<div class="card col-md-8 mt-3 mx-auto mb-4" id="cardEnfermedad">
+
+<div class="row m-4">
+
+ 
+            <div class="col">
+
+                <ul class="list-group list-group-flush">
+                <div class="row justify-content-end">
+                	<div class="dropdown">
+							<button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-ellipsis-h"></i>
+							</button>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+								<div class="h6 dropdown-header">Configuracion</div> <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarReentrenamiento{{reentrenamiento.id_reentrenamiento}}">Editar</a>
+								<a id="botonEliminar" class="dropdown-item" data-toggle="modal" data-target="#eliminarReentrenamiento{{reentrenamiento.id_reentrenamiento}}">Eliminar</a>
+							</div>
+						</div>
+                	
+                </div>     
+                    <li class="list-group-item">
+             <div class="text-muted mb-2">Nombre de reentrenamiento: <br> <a  href="{% url 'cargar_reporte_reentrenamiento' reentrenamiento.id_reentrenamiento %}">{{reentrenamiento.nombre}}</a></div>
+                    </li>
+                    
+
+                     <li class="list-group-item">
+                    <div class="row">
+                     <div class="col">
+                     	<div class="text-muted">Fecha:<br> <p class="text-dark">{{reentrenamiento.fecha}}</p> </div>
+                     </div>
+                    	<div class="col">
+                    		<div class="text-muted">Estado:{% if reentrenamiento.estado %}<p class="text-dark">Activo</p>{% else %}<p class="text-dark">Inactivo</p>{% endif %}</div>
+                    	</div>
+                     
+                     </div>
+                    
+                    </li>	
+                  
+
+                </ul>
+            
+
+            </div>
+ 
+            </div>
+</div>
+
+<div class="modal fade" id="eliminarReentrenamiento{{reentrenamiento.id_reentrenamiento}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">¿Estas seguro de eliminar el reentrenamiento?</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body"></div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button> 
+										<form method="POST" action="{% url 'eliminar_reentrenamiento' reentrenamiento.id_reentrenamiento %}">{% csrf_token %} 
+										<button type="submit" class="btn btn-danger">Confirmar</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal fade" id="editarReentrenamiento{{reentrenamiento.id_reentrenamiento}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Modificar reentrenamiento</h5>
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<form method="POST" action="{% url 'modificar_reentrenamiento' reentrenamiento.id_reentrenamiento %}" enctype="multipart/form-data" class="needs-validation" novalidate autocomplete="off">{% csrf_token %} 
+										<div class="modal-body">
+											<div class="form-group">
+												<label>Nombre de reentrenamiento</label>
+												<input class="form-control" type="text" name="nombreReentrenamiento" value="{{reentrenamiento.nombre}}" required>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+											<button type="submit" class="btn btn-primary">Guardar cambios</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+{% endfor %}
+
+{% if mostrar %}
+<div class="row justify-content-center mt-3 mb-3">
+    <div class="col-md-8">
+
+<nav aria-label="...">
+  <ul class="pagination">
+    
+
+    <li class="page-item {% if not prev_page_url %} disabled {% endif %}">
+      <a class="page-link" href="{{prev_page_url}}" tabindex="-1">Anterior</a>
+    </li>
+
+
+    {% for n in reentrenamientos.paginator.page_range %}
+
+    {% if reentrenamientos.number == n %}
+ <li class="page-item active">
+      <a class="page-link" href="?pagina={{forloop.counter}}">{{forloop.counter}}</a>
+    </li>
+    {% elif n > reentrenamientos.number|add:-3 and n < reentrenamientos.number|add:3 %}
+
+    <li class="page-item ">
+      <a class="page-link" href="?pagina={{forloop.counter}}">{{forloop.counter}}</a>
+    </li>
+    {% endif %}
+
+     {% endfor %}
+  <li class="page-item {% if not next_page_url %} disabled {% endif %}">
+      <a class="page-link" href="{{next_page_url}}">Siguiente</a>
+    </li>
+
+ 
+  
+  </ul>
+</nav>
+
+
+
+</div>
+</div>
+{% endif %}
+
+ 
+
+</div>
+
+
+
+
+
+
+
+
+
+{% endblock %}

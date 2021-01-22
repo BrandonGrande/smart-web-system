@@ -1,0 +1,255 @@
+{% extends "appPrincipal/base.html" %} {% load static %} {% block content %}
+   <script src="{% static 'js/filepond.js' %}"></script>
+   <script src="{% static 'js/filepond-plugin-file-validate-size.js' %}"></script>
+   <script src="{% static 'js/filepond-plugin-file-validate-type.js' %}"></script>    
+   <link href="{% static 'css/filepond.css' %}" rel="stylesheet">
+<style type="text/css">
+	.custom-file-input ~ .custom-file-label::after {
+    content: "Selecciona la carpeta";
+}
+</style>
+{% if messages %}
+{% for message in messages %}
+
+
+<script type="text/javascript">
+       toastr.{{message.tags}}('{{message}}','',{
+ "positionClass": "toast-bottom-left"
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+
+<script type="text/javascript">
+	var idEnfermedad="{{enfermedad.id_enfermedad}}";
+</script>
+
+<div class="container-fluid">
+<div class="row justify-content-center mt-5">
+  <div class="col-lg-8">
+  <div class="card gedf-card ">
+
+    <div class="card-header">
+
+      <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+        
+   
+        <li class="nav-item">
+          <a class="nav-link active text-dark"  data-toggle="tab" href="#informacion" role="tab" aria-selected="true">Información</a>
+        </li>
+       
+        <li class="nav-item">
+          <a class="nav-link text-dark"  data-toggle="tab" role="tab" aria-selected="false" href="#imagenes">Imágenes de muestra</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-dark"  data-toggle="tab" role="tab" aria-selected="false" href="#imagenesE">Carpeta de entrenamiento</a>
+        </li>
+
+ <li class="nav-item">
+          <a class="nav-link text-dark"  data-toggle="tab" role="tab" aria-selected="false" href="#imagenesV">Carpeta de validación</a>
+        </li>
+
+     
+      </ul>
+    </div>
+
+
+
+    <div class="card-body">
+      <div class="tab-content" id="myTabContent">
+  
+        <div class="tab-pane fade show active" id="informacion" role="tabpanel">
+   
+      
+          <form action="{% url 'modificar_enfermedad' enfermedad.id_enfermedad %}" method="POST" class="needs-validation" novalidate id="guardarInformacion"  autocomplete="off"> {% csrf_token %}
+          <div class="row justify-content-center">
+            <div class="col">
+              <div class="card">
+                <div class="card-body">
+                	<div class="form-row justify-content-center">
+						<div class="col-lg-10 mb-3">
+																<label for="validationCustom01">Nombre de la enfermedad</label>
+																<input id="nombreEnfermedad" name="nombreEnfermedad" type="text" class="form-control" placeholder="Nombre de la enfermedad" required value="{{enfermedad.nombreEnfermedad}}" 
+																>
+															<div class="valid-feedback">¡Completado!</div>
+															<div class="invalid-feedback">Por favor ingresa el nombre de la enfermedad</div>
+															</div>
+															</div>
+															
+															<div class="row justify-content-center">
+																<div class="col-lg-10">
+																	<div class="form-row">
+																		<div class=" col-md-3 mb-3">
+																			<label for="inputPatogeno">Tipo de patogeno</label>
+																			<select id="tipoPatogeno" name="tipoPatogeno" class="form-control" required>
+																		    <option value="{{enfermedad.tipoPatogeno}}"></option>
+																				<option>Ninguno</option>
+																				<option>Hongo</option>
+																				<option>Virus</option>
+																				<option>Bacteria</option>
+																			</select>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															
+															<div class="form-row  justify-content-center">
+																<div class="col-lg-10 mb-3">
+																	<label for="validationCustom02">Información de la enfermedad</label>
+																	<textarea id="infoEnfermedad" required name="infoEnfermedad" class="form-control" rows="3" placeholder="¿Que es?, ¿Cuales son los sintomas?">{{enfermedad.enfermedad}}</textarea>
+																	<div class="valid-feedback">¡Completado!</div>
+																	<div class="invalid-feedback">Por favor agrega la información de la enfermedad</div>
+																</div>
+															</div>
+
+															<div class="form-row  justify-content-center">
+																<div class="col-lg-10 mb-3">
+																	<label for="validationCustom03">Control de la enfermedad</label>
+																	<textarea id="infoControl" required name="infoControl" class="form-control" rows="3" placeholder="¿Como controlar la enfermedad?">{{enfermedad.control}}</textarea>
+																	<div class="valid-feedback">¡Completado!</div>
+																	<div class="invalid-feedback">Por favor agrega el control de la enfermedad</div>
+																</div>
+															</div>
+															<div class="form-row  justify-content-center">
+																<div class="col-lg-10 mb-3">
+																	<label for="validationCustom04">Medidas preventivas</label>
+																	<textarea id="medidasPreventivas" required name="medidasPreventivas" class="form-control" rows="3" placeholder="¿Que medidas preventivas tomar para evitarla?">{{enfermedad.medidas}}</textarea>
+																	<div class="valid-feedback">¡Completado!</div>
+																	<div class="invalid-feedback">Por favor agrega las medidas preventivas</div>
+																</div>
+															</div>
+                         <div class="form-row justify-content-end mt-3">
+
+            <button class="btn btn-primary" type="submit">Guardar</button>
+                       </div>
+
+                </div>
+              
+              </div>
+            </div>
+       
+   </div>
+     
+                     </form>
+                          </div>
+                       
+
+                          <div class="tab-pane fade" id="imagenes" role="tabpanel" >
+                    
+                          <div class="row justify-content-center">
+                          <div class="col">
+               
+                    
+
+                     
+
+                       
+
+                            <div class="card mb-4">
+                            <div class="card-body">
+                           <form id="modificarMuestra" class="needs-validation"  novalidate>
+                         	<div class="form-row  justify-content-center">
+																<div class="col-lg-10 mb-3">
+																	<label for="validationCustom05">Nuevas imágenes de muestra</label>
+																	<input id="filesMuestra" type="file" multiple required>
+																	
+																</div>
+															</div>
+
+         <div class="form-row justify-content-end ">
+            <button class="btn btn-primary" type="submit">Guardar</button>
+          </div>
+
+						   </form> 
+				</div>
+		</div>
+           
+
+                        
+                            
+                        
+                          </div>
+                        </div>
+                    </div>
+
+                         <div class="tab-pane fade" id="imagenesE" role="tabpanel" >
+                    
+                          <div class="row justify-content-center">
+                          <div class="col">
+                          	     <div class="card mb-4">
+
+                            <div class="card-body">
+                <form id="modificarCarpetaEntrenamiento" class="needs-validation"  novalidate> 
+
+															<div class="form-row  justify-content-center">
+																<div class="col-lg-10 mb-2">
+																		<label for="validationCustom06">Nueva carpeta de imágenes para entrenamiento</label>
+																	<div class="custom-file">
+																	
+									<input name="fileEntrenamiento" id="fileEntrenamiento" type="file" class="custom-file-input" webkitdirectory directory multiple required>
+									<label class="custom-file-label" for="customFile" id="numeroArchivosEntrenamiento"></label>
+									<div class="valid-feedback">¡Completado!</div>
+																	<div class="invalid-feedback">Por favor ingresa la carpeta de imagenes</div>
+								</div>
+																</div>
+															</div>
+		
+           
+                 
+   
+
+     <div class="form-row justify-content-end mt-3">
+            <button class="btn btn-primary" type="submit">Guardar</button>
+          </div>
+														</form> 
+    </div>
+                          	</div>
+                          </div>     
+              </div>  
+              </div>
+               <div class="tab-pane fade" id="imagenesV" role="tabpanel" >
+                  <div class="row justify-content-center">
+                          <div class="col">
+                          	     <div class="card mb-4">
+
+                            <div class="card-body">
+                <form id="modificarCarpetaValidacion" class="needs-validation"  novalidate> 
+															
+                 
+
+
+																<div class="form-row  justify-content-center">
+																<div class="col-lg-10 mb-2">
+																		<label for="validationCustom06">Nueva carpeta de imágenes para validación</label>
+																	<div class="custom-file">
+																	
+									<input name="fileValidacion" id="fileValidacion" type="file" class="custom-file-input" webkitdirectory directory multiple required>
+									<label class="custom-file-label" for="customFile" id="numeroArchivosValidacion"></label>
+									<div class="valid-feedback">¡Completado!</div>
+																	<div class="invalid-feedback">Por favor ingresa la carpeta de imagenes</div>
+								</div>
+																</div>
+															</div>    
+
+     <div class="form-row justify-content-end mt-3">
+            <button class="btn btn-primary" type="submit">Guardar</button>
+          </div>
+														</form> 
+    </div>
+                          	</div>
+                          </div>     
+              </div> 
+              </div>
+
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>  </div>
+
+              
+
+<script src="{% static 'js/appModificarEnfermedad.js' %}"></script>
+{% endblock %}

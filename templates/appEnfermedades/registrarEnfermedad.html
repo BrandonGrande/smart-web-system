@@ -1,0 +1,154 @@
+{% extends "appPrincipal/base.html" %} {% load static %} {% block content %}
+<style type="text/css">
+	.custom-file-input ~ .custom-file-label::after {
+    content: "Selecciona la carpeta";
+}
+</style>
+
+   <script src="{% static 'js/filepond.js' %}"></script>
+   <script src="{% static 'js/filepond-plugin-file-validate-size.js' %}"></script>
+   <script src="{% static 'js/filepond-plugin-file-validate-type.js' %}"></script>    
+   <link href="{% static 'css/filepond.css' %}" rel="stylesheet">
+
+
+{% if messages %}
+{% for message in messages %}
+<script type="text/javascript">
+       toastr.{{message.tags}}('{{message}}','',{
+ "positionClass": "toast-bottom-left"
+    });
+</script>
+{% endfor %}
+{% endif %}
+
+
+	
+<div class="container-fluid">
+	<div class="row justify-content-center mt-5">
+		<div class="col-lg-8">
+			<div class="card gedf-card ">
+				<div class="card-header">
+					<ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active text-dark"  data-toggle="tab" href="#datosEnfermedad" role="tab" aria-selected="true">Datos de la enfermedad</a>
+						</li>
+					</ul>
+				</div>
+				<div class="card-body">
+					<div class="tab-content" id="myTabContent">
+						<div class="tab-pane fade show active" id="datosEnfermedad" role="tabpanel">
+							<form class="needs-validation" id="guardarEnfermedad" novalidate  autocomplete="off">
+								<div class="row justify-content-center">
+									<div class="col">
+										<div class="card">
+											<div class="card-body">
+												<div class="row justify-content-center">
+													<div class="col">
+														<div class="form-row justify-content-center">
+															<div class="col-lg-10 mb-3">
+																<label for="validationCustom01">Nombre de la enfermedad</label>
+																<input id="nombreEnfermedad" name="nombreEnfermedad" type="text" class="form-control" placeholder="Nombre de la enfermedad" required
+																>
+															<div class="valid-feedback">¡Completado!</div>
+															<div class="invalid-feedback">Por favor ingresa el nombre de la enfermedad</div>
+					
+															</div>
+															</div>
+															<div class="row justify-content-center">
+																<div class="col-lg-10">
+																	<div class="form-row">
+																		<div class=" col-md-3 mb-3">
+																			<label for="inputPatogeno">Tipo de patogeno</label>
+																			<select id="tipoPatogeno" class="form-control" required>
+																		<option></option>
+																					<option>Ninguno</option>
+																				<option>Hongo</option>
+																				<option>Virus</option>
+																				<option>Bacteria</option>
+																
+																			</select>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="form-row  justify-content-center">
+																<div class="col-lg-10 mb-3">
+																	<label for="validationCustom02">Información de la enfermedad</label>
+																	<textarea id="infoEnfermedad" required name="infoEnfermedad" class="form-control" rows="3" placeholder="¿Que es?, ¿Cuales son los sintomas?"></textarea>
+																	<div class="valid-feedback">¡Completado!</div>
+																	<div class="invalid-feedback">Por favor agrega la información de la enfermedad</div>
+																</div>
+															</div>
+															<div class="form-row  justify-content-center">
+																<div class="col-lg-10 mb-3">
+																	<label for="validationCustom03">Control de la enfermedad</label>
+																	<textarea id="infoControl" required name="infoControl" class="form-control" rows="3" placeholder="¿Como controlar la enfermedad?"></textarea>
+																	<div class="valid-feedback">¡Completado!</div>
+																	<div class="invalid-feedback">Por favor agrega el control de la enfermedad</div>
+																</div>
+															</div>
+															<div class="form-row  justify-content-center">
+																<div class="col-lg-10 mb-3">
+																	<label for="validationCustom04">Medidas preventivas</label>
+																	<textarea id="medidasPreventivas" required name="medidasPreventivas" class="form-control" rows="3" placeholder="¿Que medidas preventivas tomar para evitarla?"></textarea>
+																	<div class="valid-feedback">¡Completado!</div>
+																	<div class="invalid-feedback">Por favor agrega las medidas preventivas</div>
+																</div>
+															</div>
+															<div class="form-row  justify-content-center">
+																<div class="col-lg-10 mb-3">
+																	<label for="validationCustom05">Imagenes de muestra</label>
+																	<input id="filesMuestra" type="file" multiple required>
+																	
+																</div>
+															</div>
+
+															<div class="form-row  justify-content-center">
+																<div class="col-lg-10 mb-2">
+																		<label for="validationCustom06">Carpeta de imágenes para entrenamiento</label>
+																	<div class="custom-file">
+																	
+									<input id="fileEntrenamiento" type="file" class="custom-file-input" webkitdirectory directory multiple required>
+									<label class="custom-file-label" for="customFile" id="numeroArchivosEntrenamiento"></label>
+									<div class="valid-feedback">¡Completado!</div>
+																	<div class="invalid-feedback">Por favor ingresa la carpeta de imagenes</div>
+								</div>
+																</div>
+															</div>
+																<div class="form-row  justify-content-center">
+																<div class="col-lg-10 mb-2">
+																		<label for="validationCustom06">Carpeta de imágenes para validación</label>
+																	<div class="custom-file">
+																	
+									<input id="fileValidacion" type="file" class="custom-file-input" webkitdirectory directory multiple required>
+									<label class="custom-file-label" for="customFile" id="numeroArchivosValidacion"></label>
+									<div class="valid-feedback">¡Completado!</div>
+																	<div class="invalid-feedback">Por favor ingresa la carpeta de imagenes</div>
+								</div>
+																</div>
+															</div>
+
+
+															<div class="col  mt-4">
+																<div class="form-row  justify-content-end">
+																	<button type="submit" class="btn btn-primary" >Guardar</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script src="{% static 'js/appEnfermedades.js' %}"></script>
+
+{% endblock %}

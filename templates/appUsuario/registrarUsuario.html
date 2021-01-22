@@ -1,0 +1,111 @@
+{% extends "appUsuario/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="container mt-5"> 
+<div class="row justify-content-center">
+
+<div class="col-md-8"> 	
+
+{% if messages %}
+{% for message in messages %}
+
+<script type="text/javascript">
+       toastr.{{message.tags}}('{{message}}','',{
+ "positionClass": "toast-bottom-left"
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+
+
+<div class="card">
+<article class="card-body" style="background: #DDDDDD">
+	<h4 class="card-title text-center">¡Registrate productor!</h4>
+<form method="POST" action="{% url 'registrar_usuario' %}" class="needs-validation"  novalidate>
+	{% csrf_token %}
+	
+		<div class="row">
+		<div class="col-md-6">
+			<div class="form-group" >
+				<label >Nombre</label>
+				<input class="form-control" type="text" name="first_name" required>
+				<div class="valid-feedback">¡Completado!</div>
+                <div class="invalid-feedback">Por favor ingresa tu nombre</div>
+			</div>
+		</div>
+	<div class="col-md-6">
+			<div class="form-group">
+				<label >Apellido</label>
+				<input class="form-control" type="text" name="last_name" required>
+				<div class="valid-feedback">¡Completado!</div>
+                <div class="invalid-feedback">Por favor ingresa tu apellido</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label >Nombre de usuario</label>
+				<input class="form-control" type="text" name="username" required>
+				<div class="valid-feedback">¡Completado!</div>
+                <div class="invalid-feedback">Por favor ingresa tu nombre de usuario</div>
+			</div>
+	</div>
+
+		<div class="col-md-6">
+			<div class="form-group">
+				<label >Correo</label>
+				<input class="form-control" type="email" name="email" required>
+				<div class="valid-feedback">¡Completado!</div>
+                <div class="invalid-feedback">Por favor ingresa tu correo</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label >Contraseña</label>
+				<input class="form-control" type="password" name="password1" required>
+				<div class="valid-feedback">¡Completado!</div>
+                <div class="invalid-feedback">Por favor ingresa tu contraseña</div>
+			</div>
+		</div>
+	
+		<div class="col-md-6">
+			<div class="form-group">
+				<label >Confirmar contraseña</label>
+				<input class="form-control" type="password" name="password2" required>
+				<div class="valid-feedback">¡Completado!</div>
+                <div class="invalid-feedback">Por favor ingresa la confirmación</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row justify-content-center">
+		
+			<div class="form-group">
+				<button class="btn btn-light "type="submit">Registrate</button>
+
+			
+		</div>
+	</div>
+
+	</form>
+</article>
+</div>
+	<div class="card pt-3">
+	<p class="text-center">¿Ya tienes una cuenta?<a href="{% url 'ingresar' %}" class="text-primary"> Iniciar sesión</a>
+	</div> 
+	</div>
+	</div>	
+</div>
+
+{% endblock %}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+{% load static %}
+ <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv = "X-UA-Compatible" content = "IE = edge">
+
+  <title></title>
+
+<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+ <link href="{%static 'fontawesome/css/all.css' %}" rel="stylesheet"> 
+<link rel="stylesheet" type="text/css" href="{% static 'css/registroImagen.css' %}">
+<link href="{% static 'css/general.css' %}" rel="stylesheet">
+<link href="{% static 'css/appPrincipal.css' %}" rel="stylesheet">
+<link href="{% static 'css/imagenUsuario.css' %}" rel="stylesheet">
+<script src="{% static 'jquery/jquery-3.3.1.min.js' %}"></script>
+<link href="{% static 'css/toastr.min.css' %}" rel="stylesheet">
+<script src="{% static 'js/toastr.min.js' %}"></script>
+<script src="{% static 'js/validacionFormulario.js' %}"></script>
+<script src="{% static 'js/imagenUsuario.js' %}"></script>
+<script src="{% static 'js/registroImagen.js' %}"></script>
+</head>
+<body>
+<!--Menu-->
+
+  <nav class="navbar navbar-expand-lg bg-success navbar-dark  static-top" id="barraNav">
+    <div class="container">
+      <a class="navbar-brand" href="#"><!--LOGO--></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav mr-auto">
+          
+          <li class="nav-item ">
+            <a class="nav-link rounded text-light mr-1" href="{% url 'cargar_principal' %}"><i class="fas fa-home"></i> Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link rounded text-light mr-1" href="{% url 'cargar_diagnostico' %}"><i class="fas fa-stethoscope"></i> Diagnosticar</a>
+          </li>
+          
+       
+          <li class="nav-item">
+            <a class="nav-link rounded text-light mr-1" href="{% url 'cargar_reportes' %}"><i class="fas fa-file-invoice"></i> Reportes</a>
+          </li>
+         
+
+          <li class="nav-item">
+            <a class="nav-link rounded text-light mr-1" href="{% url 'cargar_comunidad' %}"><i class="fas fa-users"></i> Comunidad</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link rounded text-light mr-1" href="{% url 'cargar_biblioteca' %}"><i class="fas fa-book"></i> Biblioteca</a>
+          </li>
+          <!--
+{% if request.user.is_superuser %}
+          <li class="nav-item">
+            <a class="nav-link rounded text-light mr-1" href="#"><i class="fas fa-book-medical"></i> Enfermedades</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link rounded text-light mr-1" href="#"><i class="fas fa-dumbbell"></i> Reentrenamiento</a>
+          </li>
+
+{% endif %}
+-->
+        </ul>
+         
+
+          <div class="dropdown">
+  <button class="btn btn-success dropdown-toggle ml-5" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fas fa-user"></i> {{user.username|capfirst}}
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    
+
+      <div class="row justify-content-center">
+         <div class="circle">
+        <img   src="{{user.get_image}}" onload='fixAspect(this);'>
+
+      </div>  
+     </div>
+
+      <div class="row justify-content-center"><h5 class="h6"> {{user.username|capfirst}}</h5></div>
+           
+
+     
+
+   
+
+    <a class="dropdown-item" href="{% url 'cargar_configuracion' %}">Configuración de información</a>
+    {% if request.user.is_superuser %}
+        <a class="dropdown-item" href="{% url 'cargar_enfermedades' %}">Gestión de enfermedades</a>
+            <a class="dropdown-item" href="{% url 'cargar_reentrenamiento' %}">Reentrenamiento de red neuronal</a>
+                <a class="dropdown-item" href="{% url 'cargar_bitacora' %}">Gestión de bitácora</a>
+                <a class="dropdown-item" href="{% url 'cargar_respaldo' %}">Respaldo de base de datos</a>
+    {% endif %}
+    <a class="dropdown-item" href="{% url 'cerrar_sesion' %}">Salir</a>
+  </div>
+</div>
+
+
+
+
+      </div>
+    </div>
+  </nav>
+
+
+   {% block content %}
+
+   {% endblock %}
+
+
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

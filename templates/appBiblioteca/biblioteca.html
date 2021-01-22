@@ -1,0 +1,71 @@
+{% extends "appPrincipal/base.html" %}
+{% load static %}
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+
+<script type="text/javascript">
+       toastr.{{message.tags}}('{{message}}','',{
+ "positionClass": "toast-bottom-left"
+    });
+</script>
+
+{% endfor %}
+{% endif %}
+<div class="container mt-4">
+	
+		<div class="card">
+			<div class="card-body">
+			<form class="needs-validation" id="buscarEnfermedad" novalidate  autocomplete="off">
+				  <div class="row justify-content-center">
+                          <div class="col-md-6 mb-3">
+                          	<div class="row justify-content-center">
+                          		<div class="col-10"> <label for="validationCustom01">Nombre de enfermedad</label>
+                            <input name="nombreEnfermedad" type="text" class="form-control" id="nombreEnfermedad" placeholder="Nombre de enfermedad" required>
+                              <div class="valid-feedback">¡Completado!</div>
+                              <div class="invalid-feedback">Por favor ingresa el nombre de la enfermedad</div></div>
+                          		<div class="col-1 mt-4">
+                          			<div class="row justify-content-center mt-2">
+
+
+                          			<button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button></div>
+                          			</div>
+                           
+                            </div>
+                             </div>
+                        
+                            <div class="col-8 col-md-3 mb-3">
+                              <div class="form-row">
+																		
+																			<label for="inputPatogeno">Tipo de patogeno</label>
+																			<select id="tipoPatogeno" class="form-control">
+																		<option></option>
+																				<option>Hongo</option>
+																				<option>Virus</option>
+																				<option>Bacteria</option>
+																			
+																			</select>
+																		</div>
+																	
+                                <div class="valid-feedback">¡Completado!</div>
+                               <div class="invalid-feedback">Por favor ingresa los apellidos</div>
+                            </div>
+                  </div>
+
+			</form>
+		</div>
+</div>
+
+<div class="row mt-3" id="contenedorResultado"></div>
+<div class="row mt-2" id="contenedorEnfermedades">
+
+
+
+</div>
+</div>
+
+
+<script src="{% static 'js/appBiblioteca.js' %}"></script>
+
+{% endblock %}
