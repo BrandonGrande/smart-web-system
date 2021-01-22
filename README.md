@@ -23,9 +23,9 @@ The smart system can only be used locally. Due to the dependencies of neural net
 
 - Abrir la terminal del sistema operativo y ubicarte en la raiz del proyecto | Open the terminal of the operating system and go to the root of the project.
 - Colocar los siguientes comandos | Place the following commands
- - Pip install requirements.txt 
- - Python manage.py migrate 
- - Python manage.py runserver
+  - Pip install requirements.txt 
+  - Python manage.py migrate 
+  - Python manage.py runserver
 
 ####Abrir el sistema inteligente | Open the smart system
 - Abre un navegador web (Google Chrome, Firefox, Edge) | Open a web browser (Google Chrome, Firefox, Edge)
