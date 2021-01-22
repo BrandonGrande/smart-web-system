@@ -17,7 +17,7 @@ The smart system can only be used locally. Due to the dependencies of neural net
 
 #### Base de datos  | Database
 - MySQL: El proyecto utiliza la base de datos MySQL, por lo que deberas crear la base de datos en el servidor local con el nombre **bdsistemainteligente**. The project uses the MySQL database, so you must create the database on the local server with the name **bdsistemainteligente**.
-![](https://kavecan.com/wp-content/uploads/2016/10/mysql-logo-wallpaper.jpg)
+![](https://icons.iconarchive.com/icons/papirus-team/papirus-apps/256/mysql-workbench-icon.png)
 
 #### Pasos para implantación del sistema inteligente | Steps to implant the smart system
 
