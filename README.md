@@ -5,6 +5,7 @@ The smart system can only be used locally. Due to the dependencies of neural net
 
 #### Requerimiento principal | Main requirement
 - Anaconda (Python 3.7) : Es necesario tener instalado Anaconda con Python 3.7, para hacer uso de las librerias que necesita la red neuronal convolucional. It is necessary to have Anaconda installed with Python 3.7, to make use of the libraries that the convolutional neural network needs.
+
 ![](https://datarebellion.com/wp-content/uploads/2018/04/anaconda-logo-300x300.png)
 
 #### Librerias | Librarys
