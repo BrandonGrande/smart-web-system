@@ -16,19 +16,20 @@ The smart system can only be used locally. Due to the dependencies of neural net
 - Tensorflow==1.13.1
 
 ####Base de datos  | Database
-- MySQL: El proyecto utiliza la base de datos MySQL, por lo que deberas crear la base de datos en el servidor local con el nombre "bdsistemainteligente". The project uses the MySQL database, so you must create the database on the local server with the name "bdsistemainteligente".
+- MySQL: El proyecto utiliza la base de datos MySQL, por lo que deberas crear la base de datos en el servidor local con el nombre **bdsistemainteligente**. The project uses the MySQL database, so you must create the database on the local server with the name **bdsistemainteligente**.
 ![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-TNVDOv6IPeRc0blPM0bxy2zBNWnGIxlgGA&usqp=CAU)
 
 ####Pasos para implantación del sistema inteligente | Steps to implant the smart system
 
 - Abrir la terminal del sistema operativo y ubicarte en la raiz del proyecto | Open the terminal of the operating system and go to the root of the project.
 - Colocar los siguientes comandos | Place the following commands
--- Pip install requirements.txt 
--- Python manage.py migrate 
--- Python manage.py runserver
+ - Pip install requirements.txt 
+ - Python manage.py migrate 
+ - Python manage.py runserver
 
 ####Abrir el sistema inteligente | Open the smart system
 - Abre un navegador web (Google Chrome, Firefox, Edge) | Open a web browser (Google Chrome, Firefox, Edge)
 - Coloca la siguiente dirección en la URL | Put the following address in the URL
---127.0.0.1:8000
+  - 127.0.0.1:8000
+
 
