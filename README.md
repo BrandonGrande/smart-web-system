@@ -23,6 +23,7 @@ The smart system can only be used locally. Due to the dependencies of neural net
 - Colocar los siguientes comandos | Place the following commands
   - Pip install requirements.txt 
   - Python manage.py migrate 
+  - Python manage.py createssuperuser
   - Python manage.py runserver
 
 #### Abrir el sistema inteligente | Open the smart system
